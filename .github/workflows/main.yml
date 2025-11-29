@@ -25,7 +25,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with: 
          name: Test Report
-         path: /home/runner/work/GitHubActions_Demo5_NodeJS_Needs_Keywork/GitHubActions_Demo5_NodeJS_Needs_Keywork/test.json
+         path: /home/runner/work/GitHubActions_Demo5_NodeJS_Needs_Keyword/GitHubActions_Demo5_NodeJS_Needs_Keyword/test.json
   jobs_build:
     needs: job_test 
     runs-on: ubuntu-latest 
@@ -44,8 +44,7 @@ jobs:
       - name: Build Files to github repo 
         uses: actions/upload-artifact@v4
         with: 
-         # name: Build files
-         name: Test Report
+         name: Build files
          path: |
           dist/assets/logo.76a8d26b.png 
           dist/index.html
