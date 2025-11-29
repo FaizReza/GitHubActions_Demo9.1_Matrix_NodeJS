@@ -24,6 +24,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with: 
          name: upload test.json file
-         path: /home/runner/work/Nodejs-GithubActions/Nodejs-GithubActions/test.json
+         path: /home/runner/work/GitHubActions_Demo4.2_NodeJS_Upload_Artifact/GitHubActions_Demo4.2_NodeJS_Upload_Artifact/test.json
       - name: Build code 
         run: npm run build 
