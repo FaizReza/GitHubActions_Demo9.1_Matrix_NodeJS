@@ -45,9 +45,9 @@ jobs:
       run: npm run build
     - name: Deploy the code
       run: echo 'Deploy the code'
-    #   if: ${{ success() && matrix.node-version == 18 && matrix.operating-system == 'ubuntu-latest' }}
-    # - name: Print NodeJS version and OS
-    #   run: |
-    #     echo "NodeJS version is ${{ matrix.node-version }}"
-    #     echo "Operating System is ${{ matrix.operating-system }}"
+      if: ${{ success() && matrix.node-version == 18 && matrix.operating-system == 'ubuntu-latest' }}
+    - name: Print NodeJS version and OS
+      run: |
+        echo "NodeJS version is ${{ matrix.node-version }}"
+        echo "Operating System is ${{ matrix.operating-system }}"
         
