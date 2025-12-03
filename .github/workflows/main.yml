@@ -23,11 +23,13 @@ jobs:
      matrix:
       node-version: [12,16,18]
       operating-system: [ubuntu-latest, windows-latest]
-      # exclude:
-      # - node-version: 12
-      #   operating-system: ubuntu-latest
-      # - node-version: 12
-      #   operating-system: windows-latest
+      # Specefic and special condition starts here
+      exclude:
+      - node-version: 12
+        operating-system: ubuntu-latest
+      - node-version: 12
+        operating-system: windows-latest
+      # Specefic and special condition ends here
    runs-on: ${{ matrix.operating-system }}
    steps:
     - name: Clone the repo
