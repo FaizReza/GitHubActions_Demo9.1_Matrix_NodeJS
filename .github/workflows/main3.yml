@@ -1,0 +1,53 @@
+# Matrix Strategy to build and test NodeJS application on multiple OS and NodeJS versions
+# Here we are using matrix strategy to define multiple versions of NodeJS and Operating Systems
+# The workflow will run for each combination of NodeJS version and OS defined in the matrix
+# The workflow also includes conditions to deploy the code only for specific combinations
+# For example, deployment will only occur when NodeJS version is 18 and OS is ubuntu-latest
+# The workflow also prints the NodeJS version and OS being used in each run
+# This approach helps in ensuring compatibility across different environments
+# Continue-on-error is set to true to allow the workflow to proceed even if some combinations fail
+# This is useful for testing purposes where some configurations might not be supported
+# The workflow can be triggered manually using workflow_dispatch or on push events
+# The steps include checking out the code, setting up NodeJS, installing dependencies, running tests, building the code, and deploying if conditions are met
+# Finally, it prints the NodeJS version and OS for each run
+# Note: Make sure to adjust the paths and commands as per your project structure and requirements
+---
+name: main3.yml-Matrix.Exclude.Include Build nodejs Application
+on:
+ workflow_dispatch:
+ push:
+jobs:
+  job1:
+   continue-on-error: true
+   strategy:
+     matrix:
+      node-version: [12,16,18]
+      operating-system: [ubuntu-latest, windows-latest]
+      exclude:
+      - node-version: 12
+        operating-system: ubuntu-latest
+      - node-version: 12
+        operating-system: windows-latest
+   runs-on: ${{ matrix.operating-system }}
+   steps:
+    - name: Clone the repo
+      uses: actions/checkout@v4
+    - name: Install nodejs
+      uses: actions/setup-node@v4
+      with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+    - name: Install dependencies
+      run: npm ci
+    - name: Executes test cases
+      run: npm test
+    - name: Build the code
+      run: npm run build
+    - name: Deploy the code
+      run: echo 'Deploy the code'
+      if: ${{ success() && matrix.node-version == 18 && matrix.operating-system == 'ubuntu-latest' }}
+    - name: Print NodeJS version and OS
+      run: |
+        echo "NodeJS version is ${{ matrix.node-version }}"
+        echo "Operating System is ${{ matrix.operating-system }}"
+        
