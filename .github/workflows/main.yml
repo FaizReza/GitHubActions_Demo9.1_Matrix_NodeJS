@@ -1,9 +1,6 @@
 # Matrix Strategy to build and test NodeJS application on multiple OS and NodeJS versions
 # Here we are using matrix strategy to define multiple versions of NodeJS and Operating Systems
 # The workflow will run for each combination of NodeJS version and OS defined in the matrix
-# The workflow also includes conditions to deploy the code only for specific combinations
-# For example, deployment will only occur when NodeJS version is 18 and OS is ubuntu-latest
-# The workflow also prints the NodeJS version and OS being used in each run
 # This approach helps in ensuring compatibility across different environments
 # Continue-on-error is set to true to allow the workflow to proceed even if some combinations fail
 # This is useful for testing purposes where some configurations might not be supported
@@ -12,10 +9,10 @@
 # Finally, it prints the NodeJS version and OS for each run
 # Note: Make sure to adjust the paths and commands as per your project structure and requirements
 ---
-name: build nodejs Application
+name: Matrix. Build nodejs Application
 on:
  workflow_dispatch:
- push:
+ # push:
 jobs:
   job1:
    continue-on-error: true
@@ -23,13 +20,11 @@ jobs:
      matrix:
       node-version: [12,16,18]
       operating-system: [ubuntu-latest, windows-latest]
-      # Specefic and special condition starts here
-      exclude:
-      - node-version: 12
-        operating-system: ubuntu-latest
-      - node-version: 12
-        operating-system: windows-latest
-      # Specefic and special condition ends here
+      # exclude:
+      # - node-version: 12
+      #   operating-system: ubuntu-latest
+      # - node-version: 12
+      #   operating-system: windows-latest
    runs-on: ${{ matrix.operating-system }}
    steps:
     - name: Clone the repo
@@ -52,4 +47,3 @@ jobs:
       run: |
         echo "NodeJS version is ${{ matrix.node-version }}"
         echo "Operating System is ${{ matrix.operating-system }}"
-        
